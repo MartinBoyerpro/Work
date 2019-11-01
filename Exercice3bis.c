@@ -231,8 +231,23 @@ void cherche_par_specialite(double x, double y, char * specialite[], Restaurant 
             k++;
         }
     }
-     print_result(results, p);
+    Restaurant inter;
+    int v,w;
+    for(v=0;v<p-1;v++)
+        for(w=v+1;w<p;w++){
+            double abscisse=fabs(x-results[v].position_restaurant.x);
+            double ordonne=fabs(y-results[v].position_restaurant.y);
+            double abscisse2=fabs(x-results[w].position_restaurant.x);
+            double ordonne2=fabs(y-results[w].position_restaurant.y);
+            if ( sqrt(abscisse*abscisse+ordonne*ordonne) > sqrt(abscisse2*abscisse2+ordonne2*ordonne2) ) {
+                inter = results[v];
+                results[v] = results[w];
+                results[w] = inter;
+            }
+        }
+    print_result(results, p);
 }
+
 
 void viderBuffer()
 {
